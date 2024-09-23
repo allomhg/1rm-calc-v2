@@ -1,6 +1,15 @@
+import { useState } from "react";
 import Table from "./Table";
 
+export interface InputState {
+    weight: number;
+    reps: number;
+    units: number; // 0 = metric (kg), 1 = imperial (lb)
+}
+
 const Form: React.FC = () => {
+    const [isVisible, setIsVisible] = useState(false); // Use for toggling visibilty of Table and ResetButton
+
     return (
         <form>
             <div>

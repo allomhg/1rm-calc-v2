@@ -6,7 +6,7 @@ interface TableRow {
 }
 
 function generateRows ( ) {
-    return Array.from({length: 10 }, (v, i) => (
+    return Array.from({length: 10 }, (_, i) => (
         {
             id: i + 1,
             percentage: 100,
