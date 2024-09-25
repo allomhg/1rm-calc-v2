@@ -20,28 +20,26 @@ const Table: React.FC = () => {
     const rows: TableRow[] = generateRows();
 
     return (
-        <section>
-            <table>
-                {/* TABLE HEADER */}
-                <thead>
-                    <tr>
-                        <td>1 RM %</td>
-                        <td>Weight</td>
-                        <td>Reps</td>
+        <table>
+            {/* TABLE HEADER */}
+            <thead>
+                <tr>
+                    <td>1 RM %</td>
+                    <td>Weight</td>
+                    <td>Reps</td>
+                </tr>
+            </thead>
+            {/* TABLE BODY */}
+            <tbody>
+                {rows.map((row) => (
+                    <tr key={row.id}>
+                        <td>{row.percentage}</td>
+                        <td>{row.weight}</td>
+                        <td>{row.reps}</td>
                     </tr>
-                </thead>
-                {/* TABLE BODY */}
-                <tbody>
-                    {rows.map((row) => (
-                        <tr key={row.id}>
-                            <td>{row.percentage}</td>
-                            <td>{row.weight}</td>
-                            <td>{row.reps}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </section>
+                ))}
+            </tbody>
+        </table>
     );
 }
 

@@ -8,10 +8,15 @@ export interface InputState {
 }
 
 const Form: React.FC = () => {
-    const [isVisible, setIsVisible] = useState(false); // Use for toggling visibilty of Table and ResetButton
+    const [isVisible, setIsVisible] = useState<boolean>(false); // Use for toggling visibilty of Table and ResetButton
+
+    const handleCalculate = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setIsVisible(!isVisible);
+    }
 
     return (
-        <form>
+        <form onSubmit={handleCalculate}>
             <div>
                 <div>
                     <select id="units" name="units">
@@ -27,10 +32,16 @@ const Form: React.FC = () => {
                     <label htmlFor="reps">Repetitions:</label>
                     <input type="number" id="reps" name="reps" min="1" placeholder="Enter number of reps" />
                 </div>
-                <button>Calculate</button>
+                <button type="submit">Calculate</button>
+                {/* <button type="submit" onClick={handleCalculate}>Calculate</button> */}
             </div>
-            <button>Reset</button>
-            <Table/>
+            { isVisible && (
+                <section>
+                    <button>Reset</button>
+                    <Table/>
+                </section>
+            )}
+
         </form>
     );
 }
