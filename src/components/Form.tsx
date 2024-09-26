@@ -40,6 +40,17 @@ const Form: React.FC = () => {
         }
     }
 
+    const handleUnitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        console.log(value);
+        // if ( value === 1 ) {
+        //     setUnits(1);
+        // } else {
+
+        //     setUnits(0);
+        // }
+    }
+
     const handleReset = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         setIsVisible(!isVisible);
@@ -52,18 +63,37 @@ const Form: React.FC = () => {
             <div>
                 <div>
                     <label htmlFor="unitSelect"></label>
-                    <select id="unitSelect" name="unitSelect">
+                    <select id="unitSelect" name="unitSelect" onChange={handleUnitChange} >
                         <option value={0}>Metric</option>
                         <option value={1}>Imperial</option>
                     </select>
                 </div>
                 <div>
                     <label htmlFor="weight">Weight:</label>
-                    <input type="number" id="weight" name="weight" min="1" placeholder="Enter weight" value={weight === undefined ? "" : weight} onChange={handleWeightChange} />
+                    <input
+                        type="number"
+                        id="weight"
+                        name="weight"
+                        min="1"
+                        placeholder="Enter weight"
+                        required
+                        value={weight === undefined ? "" : weight}
+                        onChange={handleWeightChange}
+                    />
                 </div>
                 <div>
                     <label htmlFor="reps">Repetitions:</label>
-                    <input type="number" id="reps" name="reps" min="1" step="1" placeholder="Enter number of reps" value={reps === undefined ? "" : reps} onChange={handleRepChange}/>
+                    <input
+                        type="number"
+                        id="reps"
+                        name="reps"
+                        min="1"
+                        step="1"
+                        placeholder="Enter number of reps"
+                        required
+                        value={reps === undefined ? "" : reps}
+                        onChange={handleRepChange}
+                    />
                 </div>
                 <button type="submit">Calculate</button>
             </div>
