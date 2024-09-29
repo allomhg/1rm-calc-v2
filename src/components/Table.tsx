@@ -1,30 +1,37 @@
 import { InputState } from "./Form";
 
-interface TableRow {
-    id: number;
-    percentage: number;
-    weight: number;
-    reps: number;
-}
+// interface TableRow {
+//     id: number;
+//     percentage: number;
+//     weight: number;
+//     reps: number;
+//     units?: number;
+// }
 
-function generateRowsPlaceholder ( ) {
-    return Array.from({length: 10 }, (_, i) => (
-        {
-            id: i + 1,
-            percentage: 100,
-            weight: 100 - (i + 10),
-            reps: 1 + i,
-        }
-    ));
-}
+function generateRows2 (weight: number, reps: number, units: number) {
+    const oneRepMax = weight * (1 + reps / 30);
+    const rowArray = [];
 
-function generateRows (weight, reps, units) {
+    for (let i = 0; i < 10; i++) {
+        const percentage = 100 - (i * 5);
+        const calcWeight = oneRepMax * (percentage / 100);
+        const calcReps = ((oneRepMax / calcWeight) - 1) * 30;
 
+        rowArray.push(
+            {
+                id: i + 1,
+                percentage: percentage,
+                weight: calcWeight.toFixed(2),
+                reps: calcReps.toFixed(0),
+            });
+
+    }
+    console.log(rowArray);
+    return rowArray;
 }
 
 const Table: React.FC<InputState> = ({ weight, reps, units }) => {
-    const tableRowsTest: TableRow[] = generateRowsPlaceholder();
-    const rows = generateRows(weight, reps, units);
+    const rows = generateRows2(weight, reps, units);
 
     return (
         <table>
@@ -37,18 +44,8 @@ const Table: React.FC<InputState> = ({ weight, reps, units }) => {
                 </tr>
             </thead>
             {/* TABLE BODY */}
-            {/* <tbody>
-                {tableRowsTest.map((row) => (
-                    <tr key={row.id}>
-                        <td>{row.percentage}</td>
-                        <td>{row.weight}</td>
-                        <td>{row.reps}</td>
-                    </tr>
-                ))}
-            </tbody> */}
-            {/* TABLE BODY */}
             <tbody>
-                {tableRowsTest.map((row) => (
+                {rows.map((row) => (
                     <tr key={row.id}>
                         <td>{row.percentage}</td>
                         <td>{row.weight}</td>
