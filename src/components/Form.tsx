@@ -41,14 +41,13 @@ const Form: React.FC = () => {
     }
 
     const handleUnitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value;
-        console.log(value);
-        // if ( value === 1 ) {
-        //     setUnits(1);
-        // } else {
+        const value = Number(event.target.value);
 
-        //     setUnits(0);
-        // }
+        if ( value === 1 ) {
+            setUnits(1);
+        } else {
+            setUnits(0);
+        }
     }
 
     const handleReset = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -100,7 +99,7 @@ const Form: React.FC = () => {
             { isVisible && (
                 <section>
                     <button onClick={handleReset}>Reset</button>
-                    <Table/>
+                    <Table weight={weight} reps={reps} units={units} />
                 </section>
             )}
 
