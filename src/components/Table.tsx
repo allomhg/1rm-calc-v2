@@ -1,3 +1,5 @@
+import { InputState } from "./Form";
+
 interface TableRow {
     id: number;
     percentage: number;
@@ -5,7 +7,7 @@ interface TableRow {
     reps: number;
 }
 
-function generateRows ( ) {
+function generateRowsPlaceholder ( ) {
     return Array.from({length: 10 }, (_, i) => (
         {
             id: i + 1,
@@ -16,8 +18,13 @@ function generateRows ( ) {
     ));
 }
 
-const Table: React.FC = () => {
-    const rows: TableRow[] = generateRows();
+function generateRows (weight, reps, units) {
+
+}
+
+const Table: React.FC<InputState> = ({ weight, reps, units }) => {
+    const tableRowsTest: TableRow[] = generateRowsPlaceholder();
+    const rows = generateRows(weight, reps, units);
 
     return (
         <table>
@@ -30,8 +37,18 @@ const Table: React.FC = () => {
                 </tr>
             </thead>
             {/* TABLE BODY */}
+            {/* <tbody>
+                {tableRowsTest.map((row) => (
+                    <tr key={row.id}>
+                        <td>{row.percentage}</td>
+                        <td>{row.weight}</td>
+                        <td>{row.reps}</td>
+                    </tr>
+                ))}
+            </tbody> */}
+            {/* TABLE BODY */}
             <tbody>
-                {rows.map((row) => (
+                {tableRowsTest.map((row) => (
                     <tr key={row.id}>
                         <td>{row.percentage}</td>
                         <td>{row.weight}</td>

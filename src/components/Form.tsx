@@ -2,8 +2,8 @@ import { useState } from "react";
 import Table from "./Table";
 
 export interface InputState {
-    weight: number;
-    reps: number;
+    weight: number | undefined;
+    reps: number | undefined;
     units: number; // 0 = metric (kg), 1 = imperial (lb)
 }
 
