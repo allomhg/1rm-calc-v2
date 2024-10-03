@@ -1,32 +1,34 @@
 import { InputState } from "./Form";
 
-// interface TableRow {
-//     id: number;
-//     percentage: number;
-//     weight: number;
-//     reps: number;
-//     units?: number;
-// }
+function generateRows2 (weight: number | undefined, reps: number | undefined, units: number) {
 
-function generateRows2 (weight: number, reps: number, units: number) {
-    const oneRepMax = weight * (1 + reps / 30);
+    if (weight === undefined || reps === undefined) {
+        return [];
+    }
+
+    // console.log("Reps: " + reps);
+
+    // const oneRepMaxEpley = weight * (1 + reps / 30);
+    const oneRepMaxBrzycki = weight / (1.0278 - 0.0278 * reps);
+    console.log(oneRepMaxBrzycki);
     const rowArray = [];
 
     for (let i = 0; i < 10; i++) {
         const percentage = 100 - (i * 5);
-        const calcWeight = oneRepMax * (percentage / 100);
-        const calcReps = ((oneRepMax / calcWeight) - 1) * 30;
+        const calcWeight = oneRepMaxBrzycki * (percentage / 100);
+        const calcReps = ((oneRepMaxBrzycki / calcWeight) - 1) * 30;
+        // console.log("calcReps " + calcReps);
 
         rowArray.push(
             {
                 id: i + 1,
                 percentage: percentage,
                 weight: calcWeight.toFixed(2),
-                reps: calcReps.toFixed(0),
+                reps: calcReps.toFixed(2),
             });
 
     }
-    console.log(rowArray);
+    // console.log(rowArray);
     return rowArray;
 }
 
