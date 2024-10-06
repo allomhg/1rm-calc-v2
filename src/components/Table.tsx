@@ -1,32 +1,42 @@
 import { InputState } from "./Form";
 
-function generateRows2 (weight: number | undefined, reps: number | undefined, units: number) {
+interface TableRow {
+    id: number;
+    percentage: number;
+    weight: string;
+    reps: string;
+}
 
+function generateRows2 (weight: number | undefined, reps: number | undefined, units: number) {
     if (weight === undefined || reps === undefined) {
         return [];
     }
 
-    // console.log("Reps: " + reps);
+    const oneRepMaxBrzycki: number = weight / (1.0278 - 0.0278 * reps);
+    const rowArray: Array<TableRow> = [];
 
-    // const oneRepMaxEpley = weight * (1 + reps / 30);
-    const oneRepMaxBrzycki = weight / (1.0278 - 0.0278 * reps);
-    console.log(oneRepMaxBrzycki);
-    const rowArray = [];
+
 
     for (let i = 0; i < 10; i++) {
         const percentage = 100 - (i * 5);
         const calcWeight = oneRepMaxBrzycki * (percentage / 100);
         const calcReps = ((oneRepMaxBrzycki / calcWeight) - 1) * 30;
-        // console.log("calcReps " + calcReps);
+        let calcWeightString: string = "";
+
+        if (units === 1) {
+            const calcWeightPounds = (oneRepMaxBrzycki * (percentage / 100)) * 2.205;
+            calcWeightString = calcWeightPounds.toFixed(2) + " lb";
+        } else {
+            calcWeightString = calcWeight.toFixed(2) + " kg";
+        }
 
         rowArray.push(
             {
                 id: i + 1,
                 percentage: percentage,
-                weight: calcWeight.toFixed(2),
+                weight: calcWeightString,
                 reps: calcReps.toFixed(2),
             });
-
     }
     // console.log(rowArray);
     return rowArray;
