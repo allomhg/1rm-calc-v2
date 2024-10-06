@@ -7,7 +7,7 @@ interface TableRow {
     reps: string;
 }
 
-function generateRows2 (weight: number | undefined, reps: number | undefined, units: number) {
+function generateRows(weight: number | undefined, reps: number | undefined, units: number): Array<TableRow> {
     if (weight === undefined || reps === undefined) {
         return [];
     }
@@ -15,19 +15,19 @@ function generateRows2 (weight: number | undefined, reps: number | undefined, un
     const oneRepMaxBrzycki: number = weight / (1.0278 - 0.0278 * reps);
     const rowArray: Array<TableRow> = [];
 
-
-
     for (let i = 0; i < 10; i++) {
-        const percentage = 100 - (i * 5);
-        const calcWeight = oneRepMaxBrzycki * (percentage / 100);
-        const calcReps = ((oneRepMaxBrzycki / calcWeight) - 1) * 30;
+        const percentage: number = 100 - (i * 5);
+        const calcWeight: number = oneRepMaxBrzycki * (percentage / 100);
+        // const calcReps: number = ((oneRepMaxBrzycki / calcWeight) - 1) * 30;
+        const calcReps: number = (1.0278 - (calcWeight / oneRepMaxBrzycki)) / 0.0278;
+        console.log(calcReps);
         let calcWeightString: string = "";
 
         if (units === 1) {
-            const calcWeightPounds = (oneRepMaxBrzycki * (percentage / 100)) * 2.205;
-            calcWeightString = calcWeightPounds.toFixed(2) + " lb";
+            const calcWeightPounds: number = (oneRepMaxBrzycki * (percentage / 100)) * 2.205;
+            calcWeightString = calcWeightPounds.toFixed(1) + " lb";
         } else {
-            calcWeightString = calcWeight.toFixed(2) + " kg";
+            calcWeightString = calcWeight.toFixed(1) + " kg";
         }
 
         rowArray.push(
@@ -35,19 +35,17 @@ function generateRows2 (weight: number | undefined, reps: number | undefined, un
                 id: i + 1,
                 percentage: percentage,
                 weight: calcWeightString,
-                reps: calcReps.toFixed(2),
+                reps: calcReps.toFixed(0),
             });
     }
-    // console.log(rowArray);
     return rowArray;
 }
 
 const Table: React.FC<InputState> = ({ weight, reps, units }) => {
-    const rows = generateRows2(weight, reps, units);
+    const rows = generateRows(weight, reps, units);
 
     return (
         <table>
-            {/* TABLE HEADER */}
             <thead>
                 <tr>
                     <td>1 RM %</td>
@@ -55,7 +53,6 @@ const Table: React.FC<InputState> = ({ weight, reps, units }) => {
                     <td>Reps</td>
                 </tr>
             </thead>
-            {/* TABLE BODY */}
             <tbody>
                 {rows.map((row) => (
                     <tr key={row.id}>
