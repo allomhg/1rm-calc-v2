@@ -18,7 +18,6 @@ function generateRows(weight: number | undefined, reps: number | undefined, unit
     for (let i = 0; i < 10; i++) {
         const percentage: number = 100 - (i * 5);
         const calcWeight: number = oneRepMaxBrzycki * (percentage / 100);
-        // const calcReps: number = ((oneRepMaxBrzycki / calcWeight) - 1) * 30;
         const calcReps: number = (1.0278 - (calcWeight / oneRepMaxBrzycki)) / 0.0278;
         console.log(calcReps);
         let calcWeightString: string = "";
