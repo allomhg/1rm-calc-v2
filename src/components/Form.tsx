@@ -1,5 +1,8 @@
 import { useState } from "react";
 import Table from "./Table";
+// import CustomNumberInput from "./CustomNumberInput";
+import NumberInput from "./CustomNumberInputTwo";
+import CustomNumberInput from "./CustomNumberInput";
 
 export interface InputState {
     weight: number | undefined;
@@ -8,6 +11,9 @@ export interface InputState {
 }
 
 const Form: React.FC = () => {
+    // FOR NUMBER INPUT
+    const [number, setNumber] = useState(0);
+
     const [weight, setWeight] = useState<number | undefined>(undefined);
     const [reps, setReps] = useState<number | undefined>(undefined);
     const [units, setUnits] = useState<number>(0); // 0 = metric (kg), 1 = imperial (lb)
@@ -58,15 +64,22 @@ const Form: React.FC = () => {
     }
 
     return (
-        <form onSubmit={handleCalculate}>
+        <form id="mainForm" onSubmit={handleCalculate} className="bg-cust-tier3-grey mt-5">
             <div>
                 <div>
                     <label htmlFor="unitSelect"></label>
-                    <select id="unitSelect" name="unitSelect" onChange={handleUnitChange} >
+                    <select id="unitSelect" name="unitSelect" onChange={handleUnitChange} className="bg-transparent">
                         <option value={0}>Metric</option>
                         <option value={1}>Imperial</option>
                     </select>
                 </div>
+
+                {/* CUSTOM NUMBER INPUTS START */}
+                {/* <CustomNumberInput min={0} max={10} step={1} initialValue={5} /> */}
+                <NumberInput value={number} onChange={setNumber} min={0} max={100} />
+                <CustomNumberInput />
+                {/* CUSTOM NUMBER INPUTS END */}
+
                 <div>
                     <label htmlFor="weight">Weight:</label>
                     <input

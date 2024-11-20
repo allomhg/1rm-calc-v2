@@ -4,3 +4,12 @@
   padding: 2rem;
   text-align: center;
 }
+
+main {
+  background-color: #1d1d1f;
+  padding: 2rem;
+}
+
+.mainForm {
+  background-color: #212122;
+}
